@@ -31,6 +31,7 @@ import HumidifierAccessory from './HumidifierAccessory';
 import DehumidifierAccessory from './DehumidifierAccessory';
 import DiffuserAccessory from './DiffuserAccessory';
 import AirPurifierAccessory from './AirPurifierAccessory';
+import ExtractionHoodAccessory from './ExtractionHoodAccessory';
 import CameraAccessory from './CameraAccessory';
 import SceneAccessory from './SceneAccessory';
 import AirConditionerAccessory from './AirConditionerAccessory';
@@ -39,7 +40,10 @@ import IRGenericAccessory from './IRGenericAccessory';
 import IRAirConditionerAccessory from './IRAirConditionerAccessory';
 import SecuritySystemAccessory from './SecuritySystemAccessory';
 import VibrationSensorAccessory from './VibrationSensorAccessory';
+import WeatherStationAccessory from './WeatherStationAccessory';
 import DoorbellAccessory from './DoorbellAccessory';
+import PetFeederAccessory from './PetFeederAccessory';
+import WhiteNoiseLightAccessory from './WhiteNoiseLightAccessory';
 
 
 export default class AccessoryFactory {
@@ -70,6 +74,7 @@ export default class AccessoryFactory {
         break;
 
       // Electrical Products
+      case 'dlq':
       case 'kg':
       case 'tdq':
       case 'qjdcz':
@@ -86,6 +91,9 @@ export default class AccessoryFactory {
         break;
       case 'cjkg':
         handlers = [new SceneSwitchAccessory(platform, accessory)];
+        break;
+      case 'bzyd':
+        handler = new WhiteNoiseLightAccessory(platform, accessory);
         break;
 
       // Large Home Appliances
@@ -117,6 +125,9 @@ export default class AccessoryFactory {
           new LightAccessory(platform, accessory),
         ];
         break;
+      case 'cwwsq':
+        handler = new PetFeederAccessory(platform, accessory);
+        break;
       case 'mc':
         handlers = [new WindowAccessory(platform, accessory)];
         break;
@@ -138,6 +149,9 @@ export default class AccessoryFactory {
       case 'fsd':
       case 'fskg':
         handlers = [new FanAccessory(platform, accessory)];
+        break;
+      case 'yyj':
+        handler = new ExtractionHoodAccessory(platform, accessory);
         break;
 
       // Security & Video Surveillance
@@ -193,6 +207,9 @@ export default class AccessoryFactory {
         break;
       case 'wxml':
         handlers = [new DoorbellAccessory(platform, accessory)];
+        break;
+      case 'qxj':
+        handler = new WeatherStationAccessory(platform, accessory);
         break;
 
       // Other

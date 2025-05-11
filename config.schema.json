@@ -268,6 +268,19 @@
                                 }
                             }
                         }
+                    },
+                    "debug": {
+                        "title": "Enable Debug Logging",
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "debugLevel": {
+                        "title": "Debug Level",
+                        "description": "An optional list of strings seperated with comma `,`. `api` represents for API and MQTT log, device ID represents for specific device log. If blank, all logs are outputed.",
+                        "type": "string",
+                        "condition": {
+                            "functionBody": "return (model.options && model.options.debug);"
+                        }
                     }
                 }
             }
@@ -417,6 +430,17 @@
                         }
                     ]
                 }
+            ]
+        },
+        {
+            "type": "fieldset",
+            "title": "Advance Settings",
+            "expandable": true,
+            "expanded": false,
+            "notitle": false,
+            "items": [
+                "options.debug",
+                "options.debugLevel"
             ]
         }
     ]

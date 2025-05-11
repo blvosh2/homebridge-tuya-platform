@@ -4,6 +4,7 @@
 import https from 'https';
 import Crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
+import retry from 'async-await-retry';
 
 // eslint-disable-next-line
 // @ts-ignore
@@ -85,8 +86,9 @@ export default class TuyaOpenAPI {
     public accessKey: string,
     public log: Logger = console,
     public lang = 'en',
+    public debug = false,
   ) {
-    this.log = new PrefixLogger(log, TuyaOpenAPI.name);
+    this.log = new PrefixLogger(log, TuyaOpenAPI.name, debug);
   }
 
   static getDefaultEndpoint(countryCode: number) {
@@ -283,7 +285,7 @@ export default class TuyaOpenAPI {
       path += '?' + new URLSearchParams(params).toString();
     }
 
-    const res: TuyaOpenAPIResponse = await new Promise((resolve, reject) => {
+    const res: TuyaOpenAPIResponse = await retry(async () => new Promise((resolve, reject) => {
 
       const req = https.request({
         host: new URL(this.endpoint).host,
@@ -309,9 +311,12 @@ export default class TuyaOpenAPI {
         req.write(JSON.stringify(body));
       }
 
-      req.on('error', e => reject(e));
+      req.on('error', e => {
+        this.log.error('Network error: %s. Retrying...', e.message);
+        reject(e);
+      });
       req.end();
-    });
+    }), undefined, {retriesMax: 10, interval: 100, exponential: true, factor: 2, jitter: 100});
 
     this.log.debug('Response:\npath = %s\ndata = %s', path, JSON.stringify(res, null, 2));
     if (res && res.success !== true && API_ERROR_MESSAGES[res.code]) {
