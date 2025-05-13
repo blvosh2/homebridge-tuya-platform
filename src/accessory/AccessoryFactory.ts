@@ -93,7 +93,7 @@ export default class AccessoryFactory {
         handlers = [new SceneSwitchAccessory(platform, accessory)];
         break;
       case 'bzyd':
-        handler = new WhiteNoiseLightAccessory(platform, accessory);
+        handlers = [new WhiteNoiseLightAccessory(platform, accessory)];
         break;
 
       // Large Home Appliances
@@ -126,7 +126,7 @@ export default class AccessoryFactory {
         ];
         break;
       case 'cwwsq':
-        handler = new PetFeederAccessory(platform, accessory);
+        handlers = [new PetFeederAccessory(platform, accessory)];
         break;
       case 'mc':
         handlers = [new WindowAccessory(platform, accessory)];
@@ -151,7 +151,7 @@ export default class AccessoryFactory {
         handlers = [new FanAccessory(platform, accessory)];
         break;
       case 'yyj':
-        handler = new ExtractionHoodAccessory(platform, accessory);
+        handlers = [new ExtractionHoodAccessory(platform, accessory)];
         break;
 
       // Security & Video Surveillance
@@ -209,7 +209,7 @@ export default class AccessoryFactory {
         handlers = [new DoorbellAccessory(platform, accessory)];
         break;
       case 'qxj':
-        handler = new WeatherStationAccessory(platform, accessory);
+        handlers = [new WeatherStationAccessory(platform, accessory)];
         break;
 
       // Other
